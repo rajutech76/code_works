@@ -27,23 +27,9 @@
 
   <import resource="classpath:META-INF/spring/camel-user-cxf.xml" />
 
-  <!-- camelContext xmlns="http://camel.apache.org/schema/spring">
-  
-    <route>
-    
-      <from uri="cxfrs://bean://rsServer"/>
-      <to uri="seda:incomingOrders" />
-      <transform>
-        <constant>OK</constant>
-      </transform>
-    </route>
-    <route>
-      <from uri="seda:incomingOrders" />
-      <to uri="mock:end"/>
-    </route>
-  </camelContext-->
-  
-  <bean id="userRouteBuilder" class="com.telapp.rs.UserServiceRouter" />
+  <bean id="userRouteBuilder" class="com.telapp.rs.UserServiceRouter">
+   <constructor-arg ref="userService"/>
+   </bean>
 
     <camel:camelContext id="defaultCamelContext">
         <camel:routeBuilder ref="userRouteBuilder"/>

@@ -3,8 +3,6 @@
  */
 package com.telapp.rs;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,13 +14,22 @@ import org.apache.commons.logging.LogFactory;
 public class UserServiceRouter extends RouteBuilder{
 	
 	private static final Log log = LogFactory.getLog(UserServiceRouter.class);
-	private static UserRegImpl uri =new UserRegImpl();
+	
+	private UserRegistration obj =null ;
+	
+	 
+	
+	public UserServiceRouter(UserRegistration obj){		
+		this.obj =obj;
+	}
+	
+	
 	@Override
 	public void configure() throws Exception {
 		log.info("Executing the method configure");
 		
 		from("cxfrs:bean:rsServer?bindingStyle=SimpleConsumer")
-		  .process(new UserProcessor(uri))
+		  .process(new UserProcessor(obj))
 		  .to("log:TEST?showAll=true");
 		  
 
