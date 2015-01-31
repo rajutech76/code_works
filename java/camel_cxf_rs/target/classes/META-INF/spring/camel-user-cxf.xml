@@ -1,0 +1,32 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+    ">
+ 
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/>
+ 
+  <!-- Defined the real JAXRS back end service  -->
+  <jaxrs:server id="restService"
+                address="http://localhost:9000/rst/"
+                staticSubresourceResolution="true">
+    <jaxrs:serviceBeans>
+      <ref bean="userService"/>
+    </jaxrs:serviceBeans>      
+  </jaxrs:server>
+   
+  <!--  bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.JSONProvider"/-->
+ 
+  <bean id="userService" class="com.telapp.rs.UserRegImpl" />
+    
+  <!-- Defined the server endpoint to create the cxf-rs consumer -->
+  <cxf:rsServer id="rsServer" address="http://localhost:9001/rst/"
+    serviceClass="com.telapp.rs.UserRegImpl"
+    loggingFeatureEnabled="true" loggingSizeLimit="2000" skipFaultLogging="true"/>
+     
+</beans>
