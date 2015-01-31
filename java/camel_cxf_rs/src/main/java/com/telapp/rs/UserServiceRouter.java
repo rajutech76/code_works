@@ -16,18 +16,16 @@ import org.apache.commons.logging.LogFactory;
 public class UserServiceRouter extends RouteBuilder{
 	
 	private static final Log log = LogFactory.getLog(UserServiceRouter.class);
-
+	private static UserRegImpl uri =new UserRegImpl();
 	@Override
 	public void configure() throws Exception {
 		log.info("Executing the method configure");
 		
-	    from("cxfrs:bean:rsServer").
-	    process(new Processor() {
-	    	public void process(Exchange exchange) throws Exception {
-	    		}
-	    		})
-	    		.setBody(constant("SUCCESS"));
-		
+		from("cxfrs:bean:rsServer?bindingStyle=SimpleConsumer")
+		  .process(new UserProcessor(uri))
+		  .to("log:TEST?showAll=true");
+		  
+
 		log.info("Finished executing the method configure");
 		
 	}

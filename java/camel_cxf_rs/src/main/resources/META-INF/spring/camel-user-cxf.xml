@@ -12,13 +12,13 @@
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/>
  
   <!-- Defined the real JAXRS back end service  -->
-  <jaxrs:server id="restService"
+  <!-- jaxrs:server id="restService"
                 address="http://localhost:9000/rst/"
                 staticSubresourceResolution="true">
     <jaxrs:serviceBeans>
       <ref bean="userService"/>
     </jaxrs:serviceBeans>      
-  </jaxrs:server>
+  </jaxrs:server-->
    
   <!--  bean id="jsonProvider" class="org.apache.cxf.jaxrs.provider.JSONProvider"/-->
  

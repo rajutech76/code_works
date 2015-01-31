@@ -62,8 +62,14 @@ public class UserTest extends CamelSpringTestSupport {
         try {
             int result = httpclient.executeMethod(post);
             System.out.println("Response status code: " + result);
+          
+            System.out.println("response -->"+post.getResponseBodyAsString());
+            
+          /*   result = httpclient.executeMethod(post);
+            System.out.println("Response status code: " + result);
             System.out.println("Response body: ");
             System.out.println(post.getResponseBodyAsString());
+          */
         } finally {
             // Release current connection to the connection pool once you are
             // done
