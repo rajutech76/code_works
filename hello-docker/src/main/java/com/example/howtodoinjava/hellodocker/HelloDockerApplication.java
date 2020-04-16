@@ -30,6 +30,7 @@ class HelloDockerRestController {
 		log.info("Executing the method Hellodocker with input : "+name);
 		String response = "Hello " + name + " Response received on : " + new Date();
 		System.out.println(response);
+		log.info("Response  : "+response);
 		return response;
 
 	}
